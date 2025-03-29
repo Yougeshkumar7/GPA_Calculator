@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GPA Calculator with multiple calculation methods">
+    <meta name="theme-color" content="#4a6da7">
+    <title>GPA Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <button id="darkModeToggle" class="dark-mode-toggle" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <div class="container">
+        <header>
+            <h1>GPA Calculator</h1>
+        </header>
+
+        <div class="calculator-tabs">
+            <button id="simpleTabBtn" class="tab-btn active">Simple</button>
+            <button id="criteriaTabBtn" class="tab-btn">Criteria-Based</button>
+            <button id="semesterTabBtn" class="tab-btn">Semester Avg</button>
+        </div>
+
+        <!-- Simple GPA Calculator Section -->
+        <div id="simpleCalculator" class="calculator-section">
+            <h2>Simple GPA Calculator</h2>
+            <p>Enter your existing GPA and credit hours for quick calculation.</p>
+            
+            <form id="simpleForm">
+                <div class="simple-inputs" id="simpleInputList">
+                    <div class="simple-row">
+                        <input type="number" class="existing-gpa" placeholder="GPA (0.0-4.0)" min="0" max="4.0" step="0.01" required>
+                        <input type="number" class="simple-credit-hours" placeholder="Credits" min="0" step="0.5" required>
+                        <button type="button" class="btn-icon remove-simple-row" title="Remove Row">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="addSimpleRow" class="btn btn-secondary">Add Another GPA</button>
+                    <button type="button" id="calculateSimpleGPA" class="btn btn-primary">Calculate GPA</button>
+                    <button type="button" id="resetSimpleForm" class="btn btn-secondary">Reset</button>
+                </div>
+            </form>
+
+            <div class="result-container">
+                <div id="simpleResult" class="result hidden">
+                    <h2>Your Cumulative GPA: <span id="simpleGpaResult">0.00</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Criteria Based Calculator Section -->
+        <div id="criteriaCalculator" class="calculator-section hidden">
+            <h2>Criteria-Based GPA Calculator</h2>
+            <p>Set your grading criteria once, then calculate GPA based on marks and credit hours.</p>
+
+            <div class="info-text">
+                <p>The default criteria are based on the university standard grading policy.</p>
+                <p>You can customize these values or reset to the default university policy using the buttons below.</p>
+                <p><strong>How it works:</strong> Enter your marks in the calculator below, and the system will find the appropriate letter grade based on the mark ranges shown in the table. For example, 94% would be an A, while 89% would be an A-.</p>
+            </div>
+
+            <div class="criteria-setup-container" id="criteriaSetupContainer">
+                <h3>Grading Criteria Setup</h3>
+                <table class="criteria-table">
+                    <thead>
+                        <tr>
+                            <th>Grade</th>
+                            <th>GPA</th>
+                            <th>Marks Range (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="criteriaTableBody">
+                        <tr>
+                            <td><input type="text" placeholder="A" class="letter-grade"></td>
+                            <td><input type="number" placeholder="4.0" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="93" class="min-marks" min="0" max="100"> - <span class="max-marks">100</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="A-" class="letter-grade"></td>
+                            <td><input type="number" placeholder="3.67" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="87" class="min-marks" min="0" max="100"> - <span class="max-marks">92.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="B+" class="letter-grade"></td>
+                            <td><input type="number" placeholder="3.33" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="82" class="min-marks" min="0" max="100"> - <span class="max-marks">86.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="B" class="letter-grade"></td>
+                            <td><input type="number" placeholder="3.0" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="77" class="min-marks" min="0" max="100"> - <span class="max-marks">81.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="B-" class="letter-grade"></td>
+                            <td><input type="number" placeholder="2.67" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="72" class="min-marks" min="0" max="100"> - <span class="max-marks">76.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="C+" class="letter-grade"></td>
+                            <td><input type="number" placeholder="2.3" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="68" class="min-marks" min="0" max="100"> - <span class="max-marks">71.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="C" class="letter-grade"></td>
+                            <td><input type="number" placeholder="2.0" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="64" class="min-marks" min="0" max="100"> - <span class="max-marks">67.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="C-" class="letter-grade"></td>
+                            <td><input type="number" placeholder="1.67" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="60" class="min-marks" min="0" max="100"> - <span class="max-marks">63.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" placeholder="F" class="letter-grade"></td>
+                            <td><input type="number" placeholder="0.0" class="gpa-value" min="0" max="4.0" step="0.01"></td>
+                            <td><input type="number" placeholder="0" class="min-marks" min="0" max="100"> - <span class="max-marks">59.99</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="button-group">
+                    <button type="button" id="saveCriteria" class="btn btn-primary">Save Criteria</button>
+                    <button type="button" id="resetCriteria" class="btn btn-secondary">Reset to Default</button>
+                </div>
+            </div>
+
+            <div class="criteria-calculator-container" id="criteriaCalculatorContainer">
+                <h3>Calculate Your GPA Based on Marks</h3>
+                <div class="criteria-inputs" id="criteriaInputList">
+                    <div class="criteria-row">
+                        <input type="number" class="criteria-credit-hours" placeholder="Credits" min="0" step="0.5" required>
+                        <input type="number" class="criteria-marks" placeholder="Marks (%)" min="0" max="100" step="0.1" required>
+                        <span class="criteria-grade-display">-</span>
+                        <button type="button" class="btn-icon remove-criteria-row" title="Remove Course">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" id="addCriteriaRow" class="btn btn-secondary">Add Course</button>
+                    <button type="button" id="calculateCriteriaGPA" class="btn btn-primary">Calculate GPA</button>
+                    <button type="button" id="resetCriteriaForm" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+
+            <div class="result-container">
+                <div id="criteriaResult" class="result hidden">
+                    <h2>Your GPA: <span id="criteriaGpaResult">0.00</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Semester Average Calculator Section -->
+        <div id="semesterCalculator" class="calculator-section hidden">
+            <h2>Semester Average Calculator</h2>
+            <p>Calculate the simple average of your semester GPAs.</p>
+            
+            <div class="info-text">
+                <p>This calculator finds the simple average of your semester GPAs.</p>
+                <p>Formula: CGPA = (Sum of all semester GPAs) / (Number of semesters)</p>
+            </div>
+            
+            <div class="semester-inputs" id="semesterInputList">
+                <div class="semester-row">
+                    <input type="number" class="semester-gpa" placeholder="GPA (0.0-4.0)" min="0" max="4.0" step="0.01" required>
+                    <button type="button" class="btn-icon remove-semester-row" title="Remove Semester">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" id="addSemesterRow" class="btn btn-secondary">Add Semester</button>
+                <button type="button" id="calculateSemesterGPA" class="btn btn-primary">Calculate CGPA</button>
+                <button type="button" id="resetSemesterForm" class="btn btn-secondary">Reset</button>
+            </div>
+            
+            <div class="result-container">
+                <div id="semesterResult" class="result hidden">
+                    <h2>Your CGPA: <span id="semesterGpaResult">0.00</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="card">
+            <div class="history-header">
+                <h2>Calculation History</h2>
+            </div>
+            <div class="history-items" id="history">
+                <!-- History items will be populated here -->
+            </div>
+            <div class="history-footer">
+                <button type="button" id="clearHistory" class="btn btn-secondary">Clear History</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
